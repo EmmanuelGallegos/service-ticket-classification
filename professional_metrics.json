@@ -1,11 +1,5 @@
 {
-  "scope": "rounded aggregate metrics from a private professional system",
-  "historical_records": "more than 400,000",
-  "validation_method": "historical random 80/20 holdout",
-  "service_accuracy_approx": 0.990,
-  "ticket_type_model_accuracy_approx": 0.998,
-  "ticket_type_final_accuracy_approx": 0.998,
-  "indicator_final_accuracy_approx": 0.981,
-  "disclaimer": "Historical validation is not independently verified production performance. Original data, labels, taxonomy, and organization identifiers are excluded."
+  "scope": "private professional system",
+  "status": "details intentionally omitted from public portfolio",
+  "disclaimer": "Use the reproducible synthetic evaluation for public evidence."
 }
-
