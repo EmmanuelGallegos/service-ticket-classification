@@ -4,22 +4,13 @@ Privacy-safe demonstration of a multi-stage NLP system that classifies short ope
 
 ## Why this project exists
 
-Operational ticket titles are brief, inconsistent, and highly repetitive. Categories with few examples are especially difficult to learn. This project demonstrates an iterative workflow in which historical text is collected, cleaned, reviewed, and used to improve classification coverage over time.
+Operational ticket titles are brief, inconsistent, and highly repetitive. Misclassification can send a case through the wrong review path and create financial exposure when service deductions are assessed. This system supports review of current tickets by suggesting a service, ticket type, and performance indicator; it does not calculate or approve deductions.
 
 The public repository is a clean-room reconstruction. It contains newly written code, fictional categories, and synthetic records only. It does **not** include employer, client, facility, employee, email, ticket identifier, internal route, or original operational data.
 
-## Professional-system results
+## Private-system context
 
-The original private system was developed using more than 400,000 historical records. Its final recorded 80/20 historical validation produced the following aggregate results:
-
-| Target | Validation accuracy |
-| --- | ---: |
-| Service category | ~99.0% |
-| Ticket type — model only | ~99.8% |
-| Ticket type — final hybrid system | ~99.8% |
-| Performance indicator — final system | ~98.1% |
-
-These figures describe historical validation, not independently verified production performance. Repeated or near-duplicate titles may make a random holdout easier than a temporal or grouped evaluation. No per-service results or confidential labels are disclosed.
+The public repository does not disclose the private dataset size, taxonomy, detailed rules, model artifact, or validation results. Public evaluation uses fictional data only.
 
 ## Public demonstration
 
@@ -35,7 +26,7 @@ The synthetic implementation uses:
 
 Fictional service categories include Facilities, IT Support, Logistics, Food Services, Cleaning, Security, Equipment, and Customer Support. Indicator codes are also fictional.
 
-### Synthetic test results
+### Previously recorded synthetic test results
 
 After exact-title deduplication, the public dataset contains 5,452 fictional records. On its stratified 20% test partition, the reproducible pipeline obtained:
 
@@ -46,7 +37,7 @@ After exact-title deduplication, the public dataset contains 5,452 fictional rec
 | Ticket type — final hybrid system | 91.02% |
 | Fictional indicator | 85.79% |
 
-These results measure only the deliberately noisy synthetic demonstration.
+These results measure only the deliberately noisy synthetic demonstration. The public code was subsequently refactored to match the hierarchical design, so rerunning the current commit remains pending.
 
 ## Project structure
 
@@ -61,7 +52,12 @@ service-ticket-classification/
 │   └── synthetic_tickets.csv
 ├── src/
 │   ├── generate_synthetic_data.py
-│   └── train_and_evaluate.py
+│   ├── modeling.py
+│   ├── train_and_evaluate.py
+│   └── predict.py
+├── models/                 # generated locally, not committed
+├── docs/
+│   └── model-card.md
 └── results/
     ├── synthetic_metrics.json
     ├── service_confusion_matrix.png
@@ -77,11 +73,14 @@ source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
 python src/generate_synthetic_data.py
 python src/train_and_evaluate.py
+python src/predict.py data/current_tickets.csv --output results/predictions.csv
 ```
+
+Inference input requires a `title` column. Authorized current-ticket files must remain local.
 
 ## Interpreting the results
 
-Synthetic results prove that the public workflow runs end to end; they are not substitutes for the private system's historical metrics. The generated dataset intentionally includes spelling variation, short descriptions, overlapping vocabulary, and imbalanced categories.
+Stored synthetic results document a previous public run; they do not validate the refactored commit and are not substitutes for production monitoring. See the [model card](docs/model-card.md). The generated dataset intentionally includes spelling variation, short descriptions, overlapping vocabulary, and imbalanced categories.
 
 ## Privacy statement
 
