@@ -3,3 +3,6 @@ __pycache__/
 *.py[cod]
 data/
 .DS_Store
+models/
+results/predictions.csv
+*.joblib
